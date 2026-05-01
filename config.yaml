@@ -1,0 +1,66 @@
+# AI/ML Drug Interaction Checker Configuration
+
+# Model Configuration
+model:
+  classifier:
+    type: "random_forest"
+    n_estimators: 500
+    max_depth: 18
+    min_samples_split: 2
+    min_samples_leaf: 3
+    random_state: 42
+
+  neural_network:
+    embedding_dim: 128
+    hidden_layers: [256, 128, 64]
+    dropout: 0.3
+    learning_rate: 0.001
+    epochs: 50
+    batch_size: 32
+  
+  text_model:
+    model_name: "sentence-transformers/all-MiniLM-L6-v2"
+    max_length: 512
+
+# Data Configuration
+data:
+  raw_path: "data/raw/"
+  processed_path: "data/processed/"
+  models_path: "data/models/"
+  
+  train_test_split: 0.2
+  validation_split: 0.1
+  random_seed: 42
+
+# Feature Engineering
+features:
+  use_text_embeddings: true
+  use_drug_properties: true
+  use_interaction_history: true
+  
+  text_features:
+    - drug_description
+    - side_effects
+    - warnings
+  
+  numerical_features:
+    - dosage
+    - half_life
+    - molecular_weight
+
+# Prediction Thresholds
+thresholds:
+  high_risk: 0.8
+  medium_risk: 0.5
+  low_risk: 0.2
+
+# Application Settings
+app:
+  title: "AI-Powered Drug Interaction Checker"
+  max_drugs: 10
+  cache_predictions: true
+  
+# Logging
+logging:
+  level: "INFO"
+  file: "logs/app.log"
